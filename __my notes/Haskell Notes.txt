@@ -41,3 +41,11 @@ LIST: NORMAL VS CONS:/NILS[]
 
 1 : 2 : 3 : []
 
+NON-ALPHANUMERIC OPERATORS: INFIX VS NORMAL
+
+> 4 + 9 == 13
+True
+
+> (==) (4 + 9) 13
+True
+
