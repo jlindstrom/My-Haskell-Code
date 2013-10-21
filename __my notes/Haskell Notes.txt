@@ -1,0 +1,43 @@
+HASKELL NOTES 0.1
+
+COMMENT: 1) SINGLE LINE VS 2) MULTILINE
+
+-- Single-line comment
+
+{-
+Multiline
+comment
+-}
+
+LINE: BREAK VS CONTINUATION
+
+string1 = "This will print off\
+as one line."
+
+string2 = "An explicit break\n\
+requires escape code and hard break in code."
+
+STRING VS CHARACTER
+
+"cat"
+
+'c'
+
+LIST VS TUPLE
+
+[1,2,3,4,5]
+
+(1,"2",'3',4,5.0)
+
+RANGE: EXPLICIT LIST VS SHORT FORM
+
+[1,2,3,4,5]
+
+[1...5]
+
+LIST: NORMAL VS CONS:/NILS[]
+
+[1,2,3]
+
+1 : 2 : 3 : []
+
