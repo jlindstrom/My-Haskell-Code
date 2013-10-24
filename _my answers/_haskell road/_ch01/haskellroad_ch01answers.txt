@@ -1,0 +1,21 @@
+“THE HASKELL ROAD”
+CHAPTER ONE
+MY ANSWERS
+
+Exercise 1.1. Try out a few calculations using * for multiplication, + for addition, - for subtraction, ^ for exponentiation, / for division. By playing with the system, find out what the precedence order is among these operators.
+
+My answer:
+
+Prelude> 2 ^ 4 * 6 + 8
+104
+Prelude> 2 ^ 4 * (6 + 8)
+224
+Prelude> 2 ^ (4 * 6) + 8
+16777224
+Prelude> (2 ^ 4) * 6 + 8
+104
+Prelude> ((2 ^ 4) * 6) + 8
+104
+
+Unsurprisingly, order of operations is exponentiation, multiplication, and addition.
+
