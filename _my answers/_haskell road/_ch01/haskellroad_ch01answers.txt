@@ -2,7 +2,9 @@
 CHAPTER ONE
 MY ANSWERS
 
-Exercise 1.1. Try out a few calculations using * for multiplication, + for addition, - for subtraction, ^ for exponentiation, / for division. By playing with the system, find out what the precedence order is among these operators.
+EXERCISE 1.1
+
+Try out a few calculations using * for multiplication, + for addition, - for subtraction, ^ for exponentiation, / for division. By playing with the system, find out what the precedence order is among these operators.
 
 My answer:
 
@@ -17,5 +19,118 @@ Prelude> (2 ^ 4) * 6 + 8
 Prelude> ((2 ^ 4) * 6) + 8
 104
 
-Unsurprisingly, order of operations is exponentiation, multiplication, and addition.
+In the above lines, order of operations is exponentiation, multiplication, and addition.
+
+Prelude> 2 ^ 4 * 6 - 8
+88
+Prelude> 2 ^ 4 * (6 - 8)
+-32
+Prelude> 2 ^ (4 * 6) - 8
+16777208
+Prelude> (2 ^ 4) * 6 - 8
+88
+Prelude> ((2 ^ 4) * 6) - 8
+88
+
+In the above lines, order of operations is exponentiation, multiplication, and subtraction.
+
+Prelude> 10-2+300
+308
+Prelude> 10 - 2 + 300
+308
+Prelude> (10 - 2) + 300
+308
+Prelude> 10 - (2 + 300)
+-292
+Prelude> - 2 + 300 + 10
+308
+Prelude> (-2 + 300) + 10
+308
+Prelude> -2 + (300 + 10)
+308
+
+Addition and subtraction have equal precedence. This is unsurprising as the second term of subtraction is merely the addition of its negation.
+
+Therefore, order of operations is exponentiation, multiplication, and addition/subtraction.
+
+[NOTE: Propositions and exercises are lumped together for numbering purposes. There’s a Proposition 1.2 so the next exercise is 1.3.]
+
+EXERCISE 1.3
+
+Put the definition of divides in a file prime.hs. Start the Haskell interpreter hugs (Section 1.1). Now give the command :load prime or :l prime, followed by pressing Enter. Note that l is the letter l, not the digit 1. (Next to :l, a very useful command after you have edited a file of Haskell code is :reload or :r, for reloading the file.)
+
+Prelude> :l prime 
+Main>
+
+The string Main> is the Haskell prompt indicating that user-defined files are loaded. This is a sign that the definition was added to the system. The newly defined oper- ation can now be executed, as follows:
+
+Main> divides 5 7 
+False
+Main>
+
+The string Main> is the Haskell prompt, the rest of the first line is what you type. When you press Enter the system answers with the second line, followed by the Haskell prompt. You can then continue with:
+
+Main> divides 5 30 
+True
+
+My answer: I named the file “prime-new.hs” (to indicate I typed the file rather than transferred it from the book’s website--not an option here but it is for other files).
+
+Here’s the terminal’s output, including a reminder that negative numbers need to be enclosed in round brackets:
+
+Prelude> :l prime-new
+[1 of 1] Compiling Main             ( prime-new.hs, interpreted )
+Ok, modules loaded: Main.
+*Main> divides 5 7
+False
+*Main> divides 5 30
+True
+*Main> divides 5 -25
+
+<interactive>:49:1:
+    No instance for (Integral a0) arising from a use of `divides'
+    The type variable `a0' is ambiguous
+    Possible fix: add a type signature that fixes these type variable(s)
+    Note: there are several potential instances:
+      instance Integral Int -- Defined in `GHC.Real'
+      instance Integral Integer -- Defined in `GHC.Real'
+      instance Integral GHC.Types.Word -- Defined in `GHC.Real'
+    In the first argument of `(-)', namely `divides 5'
+    In the expression: divides 5 - 25
+    In an equation for `it': it = divides 5 - 25
+
+<interactive>:49:9:
+    No instance for (Num a0) arising from the literal `5'
+    The type variable `a0' is ambiguous
+    Possible fix: add a type signature that fixes these type variable(s)
+    Note: there are several potential instances:
+      instance Num Double -- Defined in `GHC.Float'
+      instance Num Float -- Defined in `GHC.Float'
+      instance Integral a => Num (GHC.Real.Ratio a)
+        -- Defined in `GHC.Real'
+      ...plus three others
+    In the first argument of `divides', namely `5'
+    In the first argument of `(-)', namely `divides 5'
+    In the expression: divides 5 - 25
+
+<interactive>:49:11:
+    No instance for (Num (a0 -> Bool)) arising from a use of `-'
+    Possible fix: add an instance declaration for (Num (a0 -> Bool))
+    In the expression: divides 5 - 25
+    In an equation for `it': it = divides 5 - 25
+*Main> divides 5 (-25)
+True
+*Main> divides (-5) (-25)
+True
+*Main> divides (-5) (-7)
+False
+
+EXERCISE 1.4
+
+Suppose in the definition of ldf we replace the condition k^2 > n by k^2 >= n, where >= expresses ‘greater than or equal’. Would that make any difference to the meaning of the program? Why (not)?
+
+My answer:
+
+(To come.)
+
+
 
