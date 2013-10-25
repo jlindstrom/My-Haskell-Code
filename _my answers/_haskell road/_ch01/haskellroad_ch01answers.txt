@@ -285,3 +285,76 @@ Define a function that gives the maximum of a list of integers. Use the predefin
 
 My answer:
 
+Instead of retrieving the module GS.hs I decided to start a new file GS-new.hs.
+
+The book already provided code for finding the minimum:
+
+<start>
+
+mnmInt :: [Int] -> Int
+mnmInt [] = error "empty list" 
+mnmInt [x] = x
+mnmInt (x:xs) = min x (mnmInt xs)
+
+<end>
+
+Loading GS-new.hs and trying out the function gave these results:
+
+<start>
+
+Prelude> :l GS-new
+[1 of 1] Compiling Main             ( GS-new.hs, interpreted )
+Ok, modules loaded: Main.
+*Main> mnmInt [1,2,3,4,5]
+1
+*Main> mnmInt [-12343214,-32423,-1234223432,-3,100]
+-1234223432
+*Main> mnmInt [1.5, 3]
+
+<interactive>:7:9:
+    No instance for (Fractional Int) arising from the literal `1.5'
+    Possible fix: add an instance declaration for (Fractional Int)
+    In the expression: 1.5
+    In the first argument of `mnmInt', namely `[1.5, 3]'
+    In the expression: mnmInt [1.5, 3]
+    
+<end>
+
+As the mnmInt function’s type declaration specifies “Int” (and it’s also in the function name) it’s no surprise using 1.5 as an input causes an error.
+
+Now on to the exercise. I’ll define maxInt using the mnmInt function as a template and simply replacing “min” with “max” (as well as renaming the function including the recursion on the last line):
+
+<start>
+
+maxInt :: [Int] -> Int
+maxInt [] = error "empty list" 
+maxInt [x] = x
+maxInt (x:xs) = max x (maxInt xs)
+
+<end>
+
+This produces:
+
+<start>
+
+*Main> :r
+[1 of 1] Compiling Main             ( GS-new.hs, interpreted )
+Ok, modules loaded: Main.
+*Main> maxInt[12,13]
+13
+*Main> maxInt[12]
+12
+*Main> maxInt[]
+*** Exception: empty list
+*Main> maxInt[-100,0,100,200,300]
+300
+*Main> maxInt[3,4,8,19,2,112,-163,1291,-44432,0]
+1291
+
+<end>
+
+It appears to work as it should.
+
+
+
+
