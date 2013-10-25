@@ -277,5 +277,11 @@ In the first case (:t divides 5) the function and its divisor 5 are specified, b
 
 In the second case the function’s input values (divisor and dividend) have already been provided, so the function will provide a Boolean True or False on the two divisibility of 7 by 5 without further input. It simply returns a Bool value.
 
+[Example 1.8 was numbered next.]
 
+Exercise 1.9
+
+Define a function that gives the maximum of a list of integers. Use the predefined function max.
+
+My answer:
 
