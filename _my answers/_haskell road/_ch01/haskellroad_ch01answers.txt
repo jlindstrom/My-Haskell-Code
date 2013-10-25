@@ -142,5 +142,184 @@ and it’s used in a function ld in which the search for the lowest natural numb
 
 Assuming the initial k is positive, the problem with replacing the cut-off point k^2 > n with k^2 >= n is that it would wrongly report that perfect squares m^2 = n have a lowest divisor of n rather than m.
 
+EXERCISE 1.5
+
+Add these definitions to the file prime.hs and try them out.
+
+My answer:
+
+With the definitions for ldf, ld, and prime0 added to the one-line file, it now looks like:
+
+<start>
+
+divides d n = rem n d == 0
+
+ldf k n | divides k n = k
+ldf k n | k^2 > n     = n
+ldf k n               = ldf (k+1) n
+
+ld n = ldf 2 n
+
+prime0 n | n <  1    = error "not a positive integer"
+         | n == 1    = False
+         | otherwise = ld n == n
+
+<end>
+
+And here’s a test run in the terminal:
+
+<start>
+
+*Main> :r
+[1 of 1] Compiling Main             ( prime-new.hs, interpreted )
+Ok, modules loaded: Main.
+*Main> prime0 10
+False
+*Main> prime0 11
+True
+*Main> prime0 12
+False
+*Main> prime0 2
+True
+*Main> prime0 1
+False
+*Main> prime0 (-2)
+*** Exception: not a positive integer
+*Main> prime0 0
+*** Exception: not a positive integer
+*Main> prime0 49279149121
+False
+*Main> prime0 100000000000000000
+False
+*Main> prime0  99999999999999997
+True
+
+<end>
+
+Despite its large size the second-last number was quickly determined not to be prime (as no even number over 2 can be prime, all even numbers are divisible by 2, and the program would have quickly found 2 as a divisor).
+
+It took a lot more time to determine that the last number, about the same size but odd, was prime (the program would have tested the divisibility of the number using all natural number divisors less than or equal to its square root, hence it would test up to and including 31 622 776 601).
+
+EXERCISE 1.6 
+
+Can you gather from the definition of divides what the type declaration for rem would look like?
+
+My answer:
+
+The definition of the divides function is:
+
+divides :: Integer -> Integer -> Bool
+divides d n = rem n d == 0
+
+(The type declaration was added by the authors after the previous exercise.)
+
+A quick check on the terminal produces:
+
+<start>
+
+*Main> rem 3 8
+3
+*Main> rem 3 8.3
+
+<interactive>:72:1:
+    No instance for (Integral a0) arising from a use of `rem'
+    The type variable `a0' is ambiguous
+    Possible fix: add a type signature that fixes these type variable(s)
+    Note: there are several potential instances:
+      instance Integral Int -- Defined in `GHC.Real'
+      instance Integral Integer -- Defined in `GHC.Real'
+      instance Integral GHC.Types.Word -- Defined in `GHC.Real'
+    In the expression: rem 3 8.3
+    In an equation for `it': it = rem 3 8.3
+
+<interactive>:72:5:
+    No instance for (Num a0) arising from the literal `3'
+    The type variable `a0' is ambiguous
+    Possible fix: add a type signature that fixes these type variable(s)
+    Note: there are several potential instances:
+      instance Num Double -- Defined in `GHC.Float'
+      instance Num Float -- Defined in `GHC.Float'
+      instance Integral a => Num (GHC.Real.Ratio a)
+        -- Defined in `GHC.Real'
+      ...plus three others
+    In the first argument of `rem', namely `3'
+    In the expression: rem 3 8.3
+    In an equation for `it': it = rem 3 8.3
+
+<interactive>:72:7:
+    No instance for (Fractional a0) arising from the literal `8.3'
+    The type variable `a0' is ambiguous
+    Possible fix: add a type signature that fixes these type variable(s)
+    Note: there are several potential instances:
+      instance Fractional Double -- Defined in `GHC.Float'
+      instance Fractional Float -- Defined in `GHC.Float'
+      instance Integral a => Fractional (GHC.Real.Ratio a)
+        -- Defined in `GHC.Real'
+    In the second argument of `rem', namely `8.3'
+    In the expression: rem 3 8.3
+    In an equation for `it': it = rem 3 8.3
+
+<end>
+
+So it seems the rem function only works with integers. It looks like there are three kinds of integers, all belonging to the Integral group.
+
+I would guess, then, that the rem function has the following type:
+
+Integer -> Integer -> Bool.
+
+Checking on the terminal reveals:
+
+<start>
+
+*Main> :t divides
+divides :: Integral a => a -> a -> Bool
+*Main> :t rem
+rem :: Integral a => a -> a -> a
+
+<end>
+
+where :t is a command to return the type declaration.
+
+There are three kinds of Integral variable, Integer being one of them, so my answer is consistent with what Haskell tells me, although my answer was too narrow.
+
+EXERCISE 1.7 
+
+The hugs system has a command for checking the types of expressions. Can you explain the following (please try it out; make sure that the file with the definition of divides is loaded, together with the type declaration for divides):
+
+Main> :t divides 5
+divides 5 :: Integer -> Bool 
+Main> :t divides 5 7
+divides 5 7 :: Bool
+Main>
+
+My answer:
+
+The book previously updated the function definition of divides to include a type declaration:
+
+<start>
+
+divides :: Integer -> Integer -> Bool
+divides d n = rem n d == 0
+
+<end>
+
+I reloaded the file and replicated the question’s types.
+
+<start>
+
+*Main> :r
+[1 of 1] Compiling Main             ( prime-new.hs, interpreted )
+Ok, modules loaded: Main.
+*Main> :t divides 5
+divides 5 :: Integer -> Bool
+*Main> :t divides 5 7
+divides 5 7 :: Bool
+
+<end>
+
+In the first case (:t divides 5) the function and its divisor 5 are specified, but we still need to provide the dividend before the function tells us if divisibility is True or False. Hence it still requires an input of type Integer.
+
+In the second case the function’s input values (divisor and dividend) have already been provided, so the function will provide a Boolean True or False on the two divisibility of 7 by 5 without further input. It simply returns a Bool value.
+
 
 
