@@ -429,5 +429,7 @@ And let’s see how that works out, ending with two cases that should (and did) 
 
 So the program appears to work as it should.
 
-[Example 1.11 is next in the numbering scheme.]
+[Examples 1.11 and 1.12 are next in the numbering scheme.]
+
+[See GS-new.hs for notes on resolving issue with Example 1.12 code when running on current GHCi interpreter.]
 

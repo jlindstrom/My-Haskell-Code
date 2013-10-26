@@ -69,3 +69,12 @@ Portability note: both Hugs98 and all releases of GHC prior to ghc-4.05 also exp
 
 -}
 
+sum' :: [Int] -> Int
+sum' [] = 0
+sum' (x:xs) = x + sum' xs
+
+length' :: [a] -> Int
+length' [] = 0
+length' (x:xs) = 1 + length' xs
+
+
