@@ -437,6 +437,71 @@ EXERCISE 1.13
 
 Write a function count for counting the number of occurrences of a character in a string. In Haskell, a character is an object of type Char, and a string an object of type String, so the type declaration should run: count :: Char -> String -> Int.
 
+My answer:
+
+<start>
+
+count :: Char -> String -> Int
+count t [] = 0 
+count t target | t == head target = 1 + count t (tail target)
+               | t /= head target = 0 + count t (tail target)
+
+<end>
+
+and testing the function produces:
+
+<start>
+
+Prelude> :r
+[1 of 1] Compiling Main             ( GS-new.hs, interpreted )
+Ok, modules loaded: Main.
+*Main> count 'f' "fruit"
+1
+*Main> count 'f' "fffffoog"
+5
+*Main> count 'f' "office"
+2
+*Main> count 'f' "Haskell"
+0
+*Main> count 'f' "Finland"
+0
+*Main> count 'F' "Finland"
+1
+
+<end> 
+
+The program appears to work as it should.
+
+I do note, though, that I used the commands head and tail as I could not figure out how to use (x:xs) pattern matching in this situation.
+
+After a bit more pondering I produced this:
+
+<start>
+
+count' :: Char -> String -> Int
+count' t [] = 0
+count' t (x:xs) | t == x     = 1 + count' t (xs)
+                | otherwise  = 0 + count' t (xs)
+
+<end>
+
+--which appeared to work as required:
+
+<start>
+
+*Main> count' 'f' "off"
+2
+*Main> count' 'f' "grapefruit"
+1
+*Main> count' 'f' "orange"
+0
+*Main> count' 'g' "gaggle of geese"
+4
+
+<end>
+
+The prime mark in count' is used to distinguish count' from count.
+
 EXERCISE 1.14
 
 A function for transforming strings into strings is of type String -> String. Write a function blowup that converts a string
@@ -447,5 +512,5 @@ to
 
 a_1 a_2 a_2 a_3 a_3 a_3....
 
-blowup “bang!” should yield “baanngg!!!!!”. (Hint: use ++ for string concatenation.)
+blowup “bang!” should yield “baannngggg!!!!!”. (Hint: use ++ for string concatenation.)
 

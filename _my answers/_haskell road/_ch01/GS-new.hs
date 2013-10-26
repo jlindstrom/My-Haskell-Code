@@ -69,6 +69,8 @@ Portability note: both Hugs98 and all releases of GHC prior to ghc-4.05 also exp
 
 -}
 
+-- Further examples from this part of the book
+
 sum' :: [Int] -> Int
 sum' [] = 0
 sum' (x:xs) = x + sum' xs
@@ -77,4 +79,17 @@ length' :: [a] -> Int
 length' [] = 0
 length' (x:xs) = 1 + length' xs
 
+-- Exercise 1.13
+
+count :: Char -> String -> Int
+count t [] = 0 
+count t target | t == head target = 1 + count t (tail target)
+               | t /= head target = 0 + count t (tail target)
+
+-- And I eventually made (x:xs) work
+
+count' :: Char -> String -> Int
+count' t [] = 0
+count' t (x:xs) | t == x     = 1 + count' t (xs)
+                | otherwise  = 0 + count' t (xs)
 
