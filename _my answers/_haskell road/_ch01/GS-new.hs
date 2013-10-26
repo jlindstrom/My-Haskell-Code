@@ -37,19 +37,24 @@ srtInts' xs = let
 
 -- Example 1.12
 
--- average :: [Int] -> Float
+{-- As written in the book:
+
+average :: [Int] -> Float
 average [] = error "empty list"
-average xs = sum xs / fromIntegral (length xs)
+average xs = fromInt (sum xs) / fromInt (length xs)
 
-{- COMPLICATION
+--}
 
-Much to my frustration, I could not get this example to work "as is."
+-- Because fromInt is now deprecated and I couldn't
+-- figure out how to import it, I changed [Int] to
+-- [Integer] in the type declaration, and changed
+-- fromInt to fromInteger in the last line:
 
-The problem seems to be that length returns an Int value, but fromInt is now deprecated, and I couldn't figure how to import it.
+average :: [Integer] -> Float
+average [] = error "empty list"
+average xs = fromIntegral (sum xs) / fromIntegral (length xs)
 
-In the end removing the type declaration "solved" the problem, but I'm not too happy about it.
-
-Here's the deprecation note:
+{- Here's the deprecation note:
 
 http://www.haskell.org/ghc/docs/4.08.2/set/sec-int.html
 
