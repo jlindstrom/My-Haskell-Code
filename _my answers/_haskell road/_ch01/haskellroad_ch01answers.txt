@@ -1,8 +1,8 @@
-“THE HASKELL ROAD”
+"THE HASKELL ROAD"
 CHAPTER ONE
 MY ANSWERS
 
-(Note: these are my answers, not the solution manual’s or any other source’s, so consider them unverified.)
+(Note: these are my answers, not the solution manual's or any other source's, so consider them unverified.)
 
 EXERCISE 1.1
 
@@ -55,7 +55,7 @@ Addition and subtraction have equal precedence. This is unsurprising as the seco
 
 Therefore, order of operations is exponentiation, multiplication, and addition/subtraction.
 
-[NOTE: Propositions and exercises are lumped together for numbering purposes. There’s a Proposition 1.2 so the next exercise is 1.3.]
+[NOTE: Propositions and exercises are lumped together for numbering purposes. There's a Proposition 1.2 so the next exercise is 1.3.]
 
 EXERCISE 1.3
 
@@ -75,9 +75,9 @@ The string Main> is the Haskell prompt, the rest of the first line is what you t
 Main> divides 5 30 
 True
 
-My answer: I named the file “prime-new.hs” (to indicate I typed the file rather than transferred it from the book’s website--not an option here but it is for other files).
+My answer: I named the file "prime-new.hs" (to indicate I typed the file rather than transferred it from the book's website--not an option here but it is for other files).
 
-Here’s the terminal’s output, including a reminder that negative numbers need to be enclosed in round brackets:
+Here's the terminal's output, including a reminder that negative numbers need to be enclosed in round brackets:
 
 Prelude> :l prime-new
 [1 of 1] Compiling Main             ( prime-new.hs, interpreted )
@@ -128,17 +128,17 @@ False
 
 EXERCISE 1.4
 
-Suppose in the definition of ldf we replace the condition k^2 > n by k^2 >= n, where >= expresses ‘greater than or equal’. Would that make any difference to the meaning of the program? Why (not)?
+Suppose in the definition of ldf we replace the condition k^2 > n by k^2 >= n, where >= expresses 'greater than or equal'. Would that make any difference to the meaning of the program? Why (not)?
 
 My answer:
 
-The book’s definition of function ldf is:
+The book's definition of function ldf is:
 
 ldf k n | divides k n = k
 ldf k n | k^2 > n     = n
 ldf k n               = ldf (k+1) n
 
-and it’s used in a function ld in which the search for the lowest natural number dividing n starts at k = 2.
+and it's used in a function ld in which the search for the lowest natural number dividing n starts at k = 2.
 
 Assuming the initial k is positive, the problem with replacing the cut-off point k^2 > n with k^2 >= n is that it would wrongly report that perfect squares m^2 = n have a lowest divisor of n rather than m.
 
@@ -166,7 +166,7 @@ prime0 n | n <  1    = error "not a positive integer"
 
 <end>
 
-And here’s a test run in the terminal:
+And here's a test run in the terminal:
 
 <start>
 
@@ -259,7 +259,7 @@ divides d n = rem n d == 0
 
 <end>
 
-I reloaded the file and replicated the question’s types.
+I reloaded the file and replicated the question's types.
 
 <start>
 
@@ -275,11 +275,11 @@ divides 5 7 :: Bool
 
 In the first case (:t divides 5) the function and its divisor 5 are specified, but we still need to provide the dividend before the function tells us if divisibility is True or False. Hence it still requires an input of type Integer.
 
-In the second case the function’s input values (divisor and dividend) have already been provided, so the function will provide a Boolean True or False on the two divisibility of 7 by 5 without further input. It simply returns a Bool value.
+In the second case the function's input values (divisor and dividend) have already been provided, so the function will provide a Boolean True or False on the two divisibility of 7 by 5 without further input. It simply returns a Bool value.
 
 [Example 1.8 was numbered next.]
 
-Exercise 1.9
+EXERCISE 1.9
 
 Define a function that gives the maximum of a list of integers. Use the predefined function max.
 
@@ -320,9 +320,9 @@ Ok, modules loaded: Main.
     
 <end>
 
-As the mnmInt function’s type declaration specifies “Int” (and it’s also in the function name) it’s no surprise using 1.5 as an input causes an error.
+As the mnmInt function's type declaration specifies "Int" (and it's also in the function name) it's no surprise using 1.5 as an input causes an error.
 
-Now on to the exercise. I’ll define maxInt using the mnmInt function as a template and simply replacing “min” with “max” (as well as renaming the function including the recursion on the last line):
+Now on to the exercise. I'll define maxInt using the mnmInt function as a template and simply replacing "min" with "max" (as well as renaming the function including the recursion on the last line):
 
 <start>
 
@@ -355,6 +355,68 @@ Ok, modules loaded: Main.
 
 It appears to work as it should.
 
+EXERCISE 1.10 
 
+Define a function removeFst that removes the first occurrence of an integer m from a list of integers. If m does not occur in the list, the list remains unchanged.
 
+My answer:
+
+I created a program that took an integer and a list and returned another list without the first instance (if any) of the specified integer.
+
+Here it is:
+
+<start>
+
+removeFst :: Int -> [Int] -> [Int]
+removeFst r [] = []
+removeFst r (x:xs) | r      == x  = xs
+                   | r      /= x  = x:removeFst r xs
+
+<end>
+
+The first line is the type declaration: take an integer and a list of integers, and return a list of integers.
+
+The second line says an empty list remains an empty list.
+
+The third line says if the target integer equals the first element of the list, then remove that first element.
+
+The program then ends.
+
+The fourth line says if the target integer does not equal the first element of the list, the list equals the first element plus the resulting sublist when the function is applied.
+
+The fourth line is using recursion, so smaller and smaller lists are potentially examined by the function.
+
+And let’s see how that works out, ending with two cases that should (and did) return errors as only one input was given:
+
+<start>
+
+*Main> removeFst 3 [1,2,3]
+[1,2]
+*Main> removeFst 3 [4,5,6]
+[4,5,6]
+*Main> removeFst 3 [1,2,3,3,3,4]
+[1,2,3,3,4]
+*Main> removeFst 3 []
+[]
+*Main> removeFst []
+
+<interactive>:128:11:
+    Couldn't match expected type `Int' with actual type `[a0]'
+    In the first argument of `removeFst', namely `[]'
+    In the expression: removeFst []
+    In an equation for `it': it = removeFst []
+*Main> removeFst 3
+
+<interactive>:129:1:
+    No instance for (Show ([Int] -> [Int]))
+      arising from a use of `print'
+    Possible fix:
+      add an instance declaration for (Show ([Int] -> [Int]))
+    In a stmt of an interactive GHCi command: print it
+
+<end>
+
+So the program appears to work as it should.
+
+[Example 1.11 is next in the numbering scheme.]
 
