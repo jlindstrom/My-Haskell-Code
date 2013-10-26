@@ -378,6 +378,8 @@ The first line is the type declaration: take an integer and a list of integers, 
 
 The second line says an empty list remains an empty list.
 
+The program then ends.
+
 The third line says if the target integer equals the first element of the list, then remove that first element.
 
 The program then ends.
@@ -385,6 +387,15 @@ The program then ends.
 The fourth line says if the target integer does not equal the first element of the list, the list equals the first element plus the resulting sublist when the function is applied.
 
 The fourth line is using recursion, so smaller and smaller lists are potentially examined by the function.
+
+To repeat, because of recursion, sometimes smaller and smaller lists are examined, and then they’re all recombined:
+
+(head1:tail1)
+(head1:head2:tail2)
+(head1:head2:head3:tail3)
+...
+
+--with the process ending when one of the heads matches the target integer or a tail turns up empty.
 
 And let’s see how that works out, ending with two cases that should (and did) return errors as only one input was given:
 
