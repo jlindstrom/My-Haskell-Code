@@ -433,3 +433,19 @@ So the program appears to work as it should.
 
 [See GS-new.hs for notes on resolving issue with Example 1.12 code when running on current GHCi interpreter.]
 
+EXERCISE 1.13
+
+Write a function count for counting the number of occurrences of a character in a string. In Haskell, a character is an object of type Char, and a string an object of type String, so the type declaration should run: count :: Char -> String -> Int.
+
+EXERCISE 1.14
+
+A function for transforming strings into strings is of type String -> String. Write a function blowup that converts a string
+
+a_1 a_2 a_3 ...
+
+to
+
+a_1 a_2 a_2 a_3 a_3 a_3....
+
+blowup “bang!” should yield “baanngg!!!!!”. (Hint: use ++ for string concatenation.)
+
