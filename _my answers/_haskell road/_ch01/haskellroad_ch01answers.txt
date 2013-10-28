@@ -614,3 +614,9 @@ blowup' s = blowupGeneric' 1 1 s
 
 (I should note that I’m not sure if I’m officially allowed to end a function name with “Generic.” I noticed some built-in functions do so.)
 
+EXERCISE 1.15
+
+Write a function srtString :: [String] -> [String] that sorts a list of strings in alphabetical order.
+
+My answer:
+
