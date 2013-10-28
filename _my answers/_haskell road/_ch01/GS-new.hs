@@ -95,10 +95,6 @@ count' t (x:xs) | t == x     = 1 + count' t (xs)
 
 -- Exercise 1.14
 
--- This is NOT the answer to Exercise 1.14
--- Instead, it's code to repeat a character
--- My answer to Exercise 1.14 will eventually come
-
 charTimes :: Int -> Char -> String
 charTimes m c | m <  1    = error "positive integer required"
 charTimes m c | m == 1    = [c]
