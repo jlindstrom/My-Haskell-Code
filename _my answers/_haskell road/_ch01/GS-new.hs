@@ -104,3 +104,22 @@ charTimes m c | m <  1    = error "positive integer required"
 charTimes m c | m == 1    = [c]
 charTimes m c | m >  1    = [c] ++ charTimes (m - 1) c
 
+blowupGeneric :: Int -> Int -> String -> String
+blowupGeneric a b [] = []
+blowupGeneric a b s  = charTimes a (head(s)) ++ blowupGeneric (a + b) b (tail(s))
+
+blowupGeneric' :: Int -> Int -> String -> String
+blowupGeneric' a b [] = []
+blowupGeneric' a b (x:xs)  = charTimes a x ++ blowupGeneric' (a + b) b xs
+
+blowup :: String -> String
+blowup s = blowupGeneric 1 1 s
+
+blowup' :: String -> String
+blowup' s = blowupGeneric' 1 1 s
+
+
+
+
+
+
