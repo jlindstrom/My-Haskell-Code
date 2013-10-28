@@ -514,3 +514,103 @@ a_1 a_2 a_2 a_3 a_3 a_3....
 
 blowup “bang!” should yield “baannngggg!!!!!”. (Hint: use ++ for string concatenation.)
 
+My answer:
+
+The function charTimes a string with the specified integer of copies of the specified character:
+
+<start>
+
+*Main> charTimes 5 'f'
+"fffff"
+*Main> charTimes 0 'f'
+"*** Exception: positive integer required
+*Main> charTimes 33 'g'
+"ggggggggggggggggggggggggggggggggg"
+
+<end>
+
+Here’s the code for charTimes:
+
+<start>
+
+charTimes :: Int -> Char -> String
+charTimes m c | m <  1    = error "positive integer required"
+charTimes m c | m == 1    = [c]
+charTimes m c | m >  1    = [c] ++ charTimes (m - 1) c
+
+<end>
+
+The function blowupGeneric creates a new string from an old string by going through each character in the old string and copying it into the new string based on the initial value and the increment:
+
+<start>
+
+*Main> blowupGeneric 1 0 "rock"
+"rock"
+*Main> blowupGeneric 2 0 "rock"
+"rroocckk"
+*Main> blowupGeneric 3 0 "rock"
+"rrroooccckkk"
+*Main> blowupGeneric 4 0 "rock"
+"rrrroooocccckkkk"
+*Main> blowupGeneric 1 1 "rock"
+"rooccckkkk"
+*Main> blowupGeneric 6 (-1) "rock"
+"rrrrrrooooocccckkk"
+*Main> blowupGeneric 3 (-1) "rock"
+"rrrooc"
+
+<end>
+
+Here’s the blowupGeneric function, using head and tail (not introduced yet in the book):
+
+<start>
+
+blowupGeneric :: Int -> Int -> String -> String
+blowupGeneric a b s  | a < 1 = []
+blowupGeneric a b []         = []
+blowupGeneric a b s          = charTimes a (head(s)) ++ blowupGeneric (a + b) b (tail(s))
+
+<end>
+
+And here’s the blowupGeneric' function, using (x:xs) pattern matching (already used in the book):
+
+<start>
+
+blowupGeneric' :: Int -> Int -> String -> String
+blowupGeneric' a b s | a < 1 = []
+blowupGeneric' a b []        = []
+blowupGeneric' a b (x:xs)    = charTimes a x ++ blowupGeneric' (a + b) b xs
+
+<end>
+
+The blowup function simply uses blowupGeneric 1 1 {string}, which prints off one copy of the first character, 1 + 1 = 2 copies of the second character, 2 + 1 = 3 copies of the third character, and so on:
+
+<start>
+
+*Main> blowup "rock"
+"rooccckkkk"
+*Main> blowup "bang!"
+"baannngggg!!!!!"
+
+<end>
+
+Here’s the code for blowup, which relies on blowupGeneric:
+
+<start>
+
+blowup :: String -> String
+blowup s = blowupGeneric 1 1 s
+
+<end>
+
+And here’s the code for blowup', which relies on blowupGeneric':
+
+<start>
+
+blowup' :: String -> String
+blowup' s = blowupGeneric' 1 1 s
+
+<end>
+
+(I should note that I’m not sure if I’m officially allowed to end a function name with “Generic.” I noticed some built-in functions do so.)
+
