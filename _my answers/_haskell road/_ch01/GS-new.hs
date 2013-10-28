@@ -117,7 +117,60 @@ blowup' :: String -> String
 blowup' s = blowupGeneric' 1 1 s
 
 
+-- Exercise 1.15
+
+-- Determine if pair of strings
+-- are in alphabetical order
+
+compWord :: String -> String -> Int
+compWord a  b | a == b =  0 -- equal
+compWord [] b          =  1 -- alphabetical
+compWord a []          = -1 -- anti-alphabetical
+compWord (x:xs) (y:ys)
+              | x <  y =  1 -- alphabetical
+              | x >  y = -1 -- anti-alphabetical
+              | x == y =  compWord xs ys
+
+-- Determine which string in pair comes
+-- first in alphabetical order
+
+topWord :: String -> String -> String
+topWord a b | compWord a b >= 0 = a
+topWord a b | compWord a b <  0 = b
 
 
+-- Determine top alphabetical string
+-- in string list
+
+topWordList :: [String] -> String
+topWordList (x:[]) = x
+topWordList (x:y:[]) = topWord x y
+topWordList (x:y:xs) 
+            | topWord x y == x = topWordList (x:xs)
+            | topWord x y == y = topWordList (y:xs)
+
+-- Put a list of strings in 
+-- alphabetical order
+            
+srtString :: [String] -> [String]
+srtString []     = []
+srtString (x:[]) = [x]
+srtString (x:y:[])
+        | topWordList [x,y]  == x = [x,y]
+        | topWordList [x,y]  == y = [y,x]
+srtString (x:y:xs) 
+        | topWordList (x:y:xs) == x = x:srtString (y:xs)
+        | topWordList (x:y:xs) == y = y:srtString (x:xs)
+        | otherwise                 = srtString ((xs) ++ [x] ++ [y])
+
+-- Note: for the above programs capital letters "..., X, Y, Z" 
+-- come before small letters "a, b, c, ...."
+
+-- Example 1.16
+
+Prefix :: String -> String -> Bool
+prefix [] ys = True
+prefix (x:xs) [] = False
+prefix (x:xs) (y:ys) = (x==y) && prefix xs ys
 
 
