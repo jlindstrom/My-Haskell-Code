@@ -168,7 +168,7 @@ srtString (x:y:xs)
 
 -- Example 1.16
 
-Prefix :: String -> String -> Bool
+prefix :: String -> String -> Bool
 prefix [] ys = True
 prefix (x:xs) [] = False
 prefix (x:xs) (y:ys) = (x==y) && prefix xs ys
