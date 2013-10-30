@@ -700,5 +700,30 @@ And here’s a sample run:
 
 The program appears to match specifications. I’m not happy that it’s capitalization-sensitive, but at this point in the book the authors have not provided any means around that, and I’m not going to jump ahead.
 
+[Example 1.16 came next.]
+
+EXERCISE 1.17
+
+Write a function substring :: String -> String -> Bool that checks whether str1 is a substring of str2.
+
+The substrings of an arbitrary string ys are given by:
+
+1. if xs is a prefix of ys, xs is a substring of ys,
+2. if ys equals y:ys' and xs is a substring of ys', xs is a substring of ys,
+3. nothing else is a substring of ys.
+
+My answer:
+
+Example 1.16 provided code for function prefix, which may structurally be a template for this present exercise (and is a function that will certainly be called upon at the very least):
+
+<start>
+
+prefix :: String -> String -> Bool
+prefix [] ys = True
+prefix (x:xs) [] = False
+prefix (x:xs) (y:ys) = (x==y) && prefix xs ys
+
+<end>
+
 
 
