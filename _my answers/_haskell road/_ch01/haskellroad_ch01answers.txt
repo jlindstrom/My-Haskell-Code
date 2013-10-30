@@ -725,5 +725,56 @@ prefix (x:xs) (y:ys) = (x==y) && prefix xs ys
 
 <end>
 
+--and which gives these results:
 
+<start>
+
+*Main> prefix "cat" "catalogue"
+True
+*Main> prefix "cat" "catalog"
+True
+*Main> prefix "catalog" "catalogue"
+True
+*Main> prefix "cats" "cat"
+False
+*Main> prefix "cat" "cat"
+True
+*Main> prefix "cat" "allocate"
+False
+
+<end>
+
+Exercise 1.17 doesn’t care if the prospective substring matches the part of another string starting from the start. The first matched character can appear later on, so “cat” would be a substring of “allocate.”
+
+Another way of putting it would be that the prospective substring may be a prefix of the second string, or a prefix of a later part of that second string.
+
+Therefore, we’ll try this code:
+
+<start>
+
+substring :: String -> String -> Bool
+substring [] ys = True
+substring x [] = False
+substring x (y:ys) = prefix x (y:ys) || substring x ys
+
+<end>
+
+-- which produced these results:
+
+<start>
+
+*Main> substring "cat" "allocate"
+True
+*Main> substring "cats" "allocate"
+False
+*Main> substring "" "allocate"
+True
+*Main> substring "cats" ""
+False
+*Main> substring "cats" "cat"
+False
+
+<end>
+
+The program seems to work as required.
 

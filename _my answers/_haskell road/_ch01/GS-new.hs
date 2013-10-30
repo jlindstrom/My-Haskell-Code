@@ -174,3 +174,10 @@ prefix (x:xs) [] = False
 prefix (x:xs) (y:ys) = (x==y) && prefix xs ys
 
 
+-- Exercise 1.17
+
+substring :: String -> String -> Bool
+substring [] ys = True
+substring x [] = False
+substring x (y:ys) = prefix x (y:ys) || substring x ys
+
