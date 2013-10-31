@@ -778,3 +778,15 @@ False
 
 The program seems to work as required.
 
+EXERCISE 1.18
+
+Find expressions with the following types:
+
+1. [String]
+2. (Bool,String)
+3. [(Bool,String)] 
+4. ([Bool],String) 
+5. Bool -> Bool
+
+Test your answers by means of the Hugs command :t.
+
