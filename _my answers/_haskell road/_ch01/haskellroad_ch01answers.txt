@@ -790,3 +790,78 @@ Find expressions with the following types:
 
 Test your answers by means of the Hugs command :t.
 
+My answers:
+
+For questions 1 to 4 note that ghci seems to prefer [[Char]] to [String] in type judgments, though I believe they are equivalent.
+
+Without commentary, here are the answers to the first four questions as checked through ghci on the terminal:
+
+1.
+
+*Main> :t ["text"]
+["text"] :: [[Char]]
+
+2.
+
+*Main> :t (True,"2 + 2 = 4")
+(True,"2 + 2 = 4") :: (Bool, [Char])
+
+3.
+
+*Main> [(True,"2 + 2 = 4"),(False,"3 + 3 = 5")]
+[(True,"2 + 2 = 4"),(False,"3 + 3 = 5")]
+
+4.
+
+*Main> :t ([True,False,True],"logic is fun")
+([True,False,True],"logic is fun") :: ([Bool], [Char])
+
+And here’s my answer to part 5:
+
+5.  For the required type of Bool -> Bool I defined a function and added it to GS-new.hs:
+
+<start>
+
+isTrue :: Bool -> Bool
+isTrue True = True
+isTrue False = False
+
+<end>
+
+With the following type judgment and function test values:
+
+<start>
+
+*Main> :t isTrue
+isTrue :: Bool -> Bool
+*Main> isTrue True
+True
+*Main> isTrue False
+False
+
+<end>
+
+However, I found that function a little simple so I came up with another one:
+
+<start>
+
+logic_negate :: Bool -> Bool
+logic_negate    True = False
+logic_negate   False = True
+
+<end>
+
+-- and on the terminal:
+
+<start>
+
+*Main> :t logic_negate
+logic_negate :: Bool -> Bool
+*Main> logic_negate True
+False
+*Main> logic_negate False
+True
+
+<end>
+
+

@@ -181,3 +181,20 @@ substring [] ys = True
 substring x [] = False
 substring x (y:ys) = prefix x (y:ys) || substring x ys
 
+-- Exercise 1.18
+
+-- For part 5.
+
+isTrue :: Bool -> Bool
+isTrue True = True
+isTrue False = False
+
+-- but I decided that was too plain, so I came up with another:
+
+logic_negate :: Bool -> Bool
+logic_negate    True = False
+logic_negate   False = True
+
+
+
+
