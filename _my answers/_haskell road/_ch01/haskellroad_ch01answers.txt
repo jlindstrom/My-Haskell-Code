@@ -864,4 +864,150 @@ True
 
 <end>
 
+EXERCISE 1.19
+
+Use the Hugs command :t to find the types of the following predefined functions:
+
+1. head
+2. last
+3. init
+4. fst
+5. (++)
+6. flip
+7. flip (++)
+
+Next, supply these functions with arguments of the expected types, and try to guess what these functions do.
+
+My answers:
+
+First, the type judgments as provided by ghci:
+
+<start>
+
+*Main> :t head
+head :: [a] -> a
+*Main> :t last
+last :: [a] -> a
+*Main> :t init
+init :: [a] -> [a]
+*Main> :t fst
+fst :: (a, b) -> a
+*Main> :t (++)
+(++) :: [a] -> [a] -> [a]
+*Main> :t flip
+flip :: (a -> b -> c) -> b -> a -> c
+*Main> :t flip (++)
+flip (++) :: [a] -> [a] -> [a]
+
+<end>
+
+And the functions appear to do the following:
+
+<start>
+
+*Main> head [1,2,3]
+1
+*Main> head "Here's a string."
+'H'
+*Main> head ['H','i']
+'H'
+
+<end>
+
+The head function returns the first element of a list.
+
+<start>
+
+*Main> tail [1,2,3]
+[2,3]
+*Main> tail "Here's a string."
+"ere's a string."
+*Main> tail ['H','i']
+"i"
+
+<end>
+
+The tail function removes the first element from a list.
+
+<start>
+
+*Main> init [1,2,3]
+[1,2]
+*Main> init "Here's a string."
+"Here's a string"
+*Main> init ['H','i']
+"H"
+
+<end>
+
+The init function removes the last element from a list.
+
+<start>
+
+*Main> fst (1,2)
+1
+*Main> fst ('H','i')
+'H'
+*Main> 
+
+<end>
+
+The fst function returns the first element of a pair.
+
+<start>
+
+*Main> [1,2,3] ++ [4,5,6]
+[1,2,3,4,5,6]
+*Main> "This " ++ "is a long string."
+"This is a long string."
+
+<end>
+
+The ++ function appends the elements of a second list to a first list.
+
+Next, to the function flip, I couldn’t figure it out on my own and instead checked it out online.
+
+To quote from http://hackage.haskell.org/package/base-4.6.0.1/docs/Prelude.html#v:flip,
+
+<start>
+
+flip :: (a -> b -> c) -> b -> a -> c
+
+flip f takes its (first) two arguments in the reverse order of f.
+
+<end>
+
+In retrospect, that makes sense, and here’s an excerpt from using flip with ghci on the terminal:
+
+<start>
+
+*Main> 3 - 5
+-2
+*Main> (-) 3 5
+-2
+*Main> flip (-) 3 5
+2
+*Main> 2 / 7
+0.2857142857142857
+*Main> (/) 2 7
+0.2857142857142857
+*Main> flip (/) 2 7
+3.5
+
+<end>
+
+Here, the round brackets convert an infix function into a prefix function.
+
+So flip (++) [a] [a] should add the first list to the second instead of adding the second list to the first:
+
+<start>
+
+*Main> [1,2,3] ++ [4,5,6]
+[1,2,3,4,5,6]
+*Main> (++) [1,2,3] [4,5,6]
+[1,2,3,4,5,6]
+*Main> flip (++) [1,2,3] [4,5,6]
+[4,5,6,1,2,3]
+
+<end> 
 
