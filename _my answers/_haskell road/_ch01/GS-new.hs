@@ -191,9 +191,37 @@ isTrue False = False
 
 -- but I decided that was too plain, so I came up with another:
 
-logic_negate :: Bool -> Bool
-logic_negate    True = False
-logic_negate   False = True
+-- SECTION 1.7 THE PRIME FACTORIZATION FACTOR
+-- Example
+
+factors :: Integer -> [Integer]
+factors n | n < 1     = error "argument not positive"
+          | n == 1    = []
+          | otherwise = p : factors (div n p) where p = ld n
+
+-- note I also had to paste the ld function and the functions it 
+-- depended on
+
+divides :: Integer -> Integer -> Bool
+divides d n = rem n d == 0
+
+ldf :: Integer -> Integer -> Integer
+ldf k n | divides k n = k
+ldf k n | k^2 > n     = n
+ldf k n               = ldf (k+1) n
+
+ld :: Integer -> Integer
+ld n = ldf 2 n
+
+prime0 :: Integer -> Bool
+prime0 n | n <  1    = error "not a positive integer"
+         | n == 1    = False
+         | otherwise = ld n == n
+
+
+
+
+
 
 
 
